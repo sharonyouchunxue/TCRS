@@ -1,0 +1,39 @@
+/* Apply styles to the main scene */
+.root {
+     -fx-background-color: #add8e6; /* Background color for the entire scene */
+    -fx-font-family: "Arial", sans-serif; /* Default font family */
+}
+
+/* style.css */
+.label {
+    -fx-font-size: 20px;
+     -fx-alignment: center;
+
+}
+
+/* Style for buttons */
+.button {
+    -fx-font-size: 20px; /* Font size for buttons */
+    -fx-pref-width: 100px; /* Preferred width for buttons */
+}
+
+/* Style for text fields */
+.text-field {
+    -fx-font-size: 14px; /* Font size for text fields */
+    -fx-pref-height: 30px; /* Preferred height for text fields */
+}
+
+/* Style for password fields */
+.password-field {
+    -fx-font-size: 14px; /* Font size for password fields */
+    -fx-pref-height: 30px; /* Preferred height for password fields */
+}
+
+/* Style for alerts (error messages) */
+.alert {
+    -fx-font-size: 16px; /* Font size for alerts */
+    -fx-background-color: #ffcccc; /* Background color for alerts */
+    -fx-border-color: #ff0000; /* Border color for alerts */
+    -fx-border-width: 2px; /* Border width for alerts */
+    -fx-text-fill: #ff0000; /* Text color for alerts */
+}
