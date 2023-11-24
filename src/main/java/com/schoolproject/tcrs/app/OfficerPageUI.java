@@ -176,6 +176,4 @@ public class OfficerPageUI extends Application {
                 vehicle.getStatus());
     }
 
-
-
 }

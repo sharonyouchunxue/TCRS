@@ -30,7 +30,7 @@ public class openViewCitationsPage extends Application {
         primaryStage.setTitle("View Citations");
 
         GridPane grid = createViewCitationsPage(primaryStage);
-        Scene scene = new Scene(grid, 800, 600);
+        Scene scene = new Scene(grid, 900, 600);
 
         // Load the CSS file and add it to the scene's stylesheets
         String cssPath = Objects.requireNonNull(getClass().getResource("/style.css")).toExternalForm();
@@ -54,32 +54,40 @@ public class openViewCitationsPage extends Application {
         TableView<CitationTableItem> citationTableView = new TableView<>();
         citationTableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
-        TableColumn<CitationTableItem, Integer> citationNumberColumn = new TableColumn<>("Citation Number");
+        TableColumn<CitationTableItem, Integer> citationNumberColumn = new TableColumn<>("Citation #");
         citationNumberColumn.setCellValueFactory(new PropertyValueFactory<>("citationNumber"));
+        citationNumberColumn.setPrefWidth(100);
 
-        TableColumn<CitationTableItem, Integer> officerBadgeNumberColumn = new TableColumn<>("Officer Badge Number");
+        TableColumn<CitationTableItem, Integer> officerBadgeNumberColumn = new TableColumn<>("Officer Badge #");
         officerBadgeNumberColumn.setCellValueFactory(new PropertyValueFactory<>("officerBadgeNumber"));
+        officerBadgeNumberColumn.setPrefWidth(100);
 
         TableColumn<CitationTableItem, Integer> violationCodeColumn = new TableColumn<>("Violation Code");
         violationCodeColumn.setCellValueFactory(new PropertyValueFactory<>("violationCode"));
+        violationCodeColumn.setPrefWidth(100);
 
-        TableColumn<CitationTableItem, String> driverLicenseNumberColumn = new TableColumn<>("Driver License Number");
+        TableColumn<CitationTableItem, String> driverLicenseNumberColumn = new TableColumn<>("Driver License #");
         driverLicenseNumberColumn.setCellValueFactory(new PropertyValueFactory<>("driverLicenseNumber"));
+        driverLicenseNumberColumn.setPrefWidth(100);
 
         TableColumn<CitationTableItem, String> vehicleIDColumn = new TableColumn<>("Vehicle ID");
         vehicleIDColumn.setCellValueFactory(new PropertyValueFactory<>("vehicleID"));
 
         TableColumn<CitationTableItem, String> dateColumn = new TableColumn<>("Date");
         dateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
+        dateColumn.setPrefWidth(70);
 
         TableColumn<CitationTableItem, String> timeColumn = new TableColumn<>("Time");
         timeColumn.setCellValueFactory(new PropertyValueFactory<>("time"));
+        timeColumn.setPrefWidth(70);
 
         TableColumn<CitationTableItem, String> locationColumn = new TableColumn<>("Location");
         locationColumn.setCellValueFactory(new PropertyValueFactory<>("location"));
+        locationColumn.setPrefWidth(70);
 
         TableColumn<CitationTableItem, String> typeColumn = new TableColumn<>("Type");
         typeColumn.setCellValueFactory(new PropertyValueFactory<>("type"));
+        typeColumn.setPrefWidth(60);
 
         citationTableView.getColumns().addAll(
                 citationNumberColumn, officerBadgeNumberColumn, violationCodeColumn,

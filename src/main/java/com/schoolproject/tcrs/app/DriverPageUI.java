@@ -40,6 +40,7 @@ public class DriverPageUI extends Application {
 
         // Create a GridPane for layout
         GridPane grid = new GridPane();
+        grid.setStyle("-fx-background-color: lightblue;");
         grid.setAlignment(Pos.CENTER);
         grid.setHgap(10);
         grid.setVgap(10);
@@ -51,34 +52,42 @@ public class DriverPageUI extends Application {
         Button searchButton = new Button("Search");
         TableView<Citation> citationTableView = new TableView<>();
 
-
         // Set up columns for the TableView
-        TableColumn<Citation, Integer> citationNumberCol = new TableColumn<>("Citation Number");
+        TableColumn<Citation, Integer> citationNumberCol = new TableColumn<>("Citation #");
         citationNumberCol.setCellValueFactory(new PropertyValueFactory<>("citationNumber"));
+        citationNumberCol.setPrefWidth(80);
 
-        TableColumn<Citation, Integer> officerBadgeNumberCol = new TableColumn<>("Badge Number");
+        TableColumn<Citation, Integer> officerBadgeNumberCol = new TableColumn<>("Badge #");
         officerBadgeNumberCol.setCellValueFactory(new PropertyValueFactory<>("policeOfficerBadgeNumber"));
+        officerBadgeNumberCol.setPrefWidth(80);
 
         TableColumn<Citation, Integer> violationCodeCol = new TableColumn<>("Violation Code");
         violationCodeCol.setCellValueFactory(new PropertyValueFactory<>("violationCode"));
+        violationCodeCol.setPrefWidth(120);
 
-        TableColumn<Citation, String> driverLicenseNumberCol = new TableColumn<>("License Number");
+        TableColumn<Citation, String> driverLicenseNumberCol = new TableColumn<>("License #");
         driverLicenseNumberCol.setCellValueFactory(new PropertyValueFactory<>("driverLicenseNumber"));
+        driverLicenseNumberCol.setPrefWidth(80);
 
         TableColumn<Citation, String> vehicleIDCol = new TableColumn<>("Vehicle ID");
         vehicleIDCol.setCellValueFactory(new PropertyValueFactory<>("vehicleID"));
+        vehicleIDCol.setPrefWidth(80);
 
         TableColumn<Citation, String> dateCol = new TableColumn<>("Date");
         dateCol.setCellValueFactory(new PropertyValueFactory<>("date"));
+        dateCol.setPrefWidth(60);
 
         TableColumn<Citation, String> timeCol = new TableColumn<>("Time");
         timeCol.setCellValueFactory(new PropertyValueFactory<>("time"));
+        timeCol.setPrefWidth(60);
 
         TableColumn<Citation, String> locationCol = new TableColumn<>("Location");
         locationCol.setCellValueFactory(new PropertyValueFactory<>("location"));
+        locationCol.setPrefWidth(80);
 
         TableColumn<Citation, String> typeCol = new TableColumn<>("Type");
         typeCol.setCellValueFactory(new PropertyValueFactory<>("type"));
+        typeCol.setPrefWidth(60);
 
         citationTableView.getColumns().addAll(citationNumberCol, officerBadgeNumberCol, violationCodeCol,
                 driverLicenseNumberCol, vehicleIDCol, dateCol, timeCol, locationCol, typeCol);
@@ -99,9 +108,9 @@ public class DriverPageUI extends Application {
 
         // Create the Pay and Traffic School buttons
         Button payAllButton = new Button("Pay All");
-        payAllButton.setMinWidth(190);
-        Button trafficSchoolButton = new Button("Traffic School");
-        trafficSchoolButton.setMinWidth(200);
+        payAllButton.setPrefSize(150,50);
+        Button trafficSchoolButton = new Button("Traffic School for All");
+        trafficSchoolButton.setPrefSize(200, 50);
 
         // Add actions for the new buttons
         payAllButton.setOnAction(e -> {
@@ -118,12 +127,13 @@ public class DriverPageUI extends Application {
         buttonContainer.setAlignment(Pos.CENTER);
 
         // Create a VBox for layout and add grid and buttonContainer
-        VBox vbox = new VBox(10, grid, buttonContainer);
+        VBox vbox = new VBox(grid, buttonContainer);
         vbox.setPadding(new Insets(10));
 
+        // Load the CSS file
+        String cssPath = Objects.requireNonNull(getClass().getResource("/style.css")).toExternalForm();
         // Create the scene with VBox as the root
         Scene scene = new Scene(vbox, 800, 600);
-        scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/style.css")).toExternalForm());
         primaryStage.setScene(scene);
         primaryStage.show();
     }

@@ -1,5 +1,6 @@
 package com.schoolproject.tcrs.app;
 
+import com.schoolproject.tcrs.app.OfficerPageUI;
 import com.schoolproject.tcrs.controllers.CitationController;
 import com.schoolproject.tcrs.controllers.DriverController;
 import com.schoolproject.tcrs.database.DatabaseConnector;
@@ -31,6 +32,7 @@ public class CitationFormUI extends Application {
     private ComboBox<String> citationTypeComboBox;
 
     public CitationFormUI() {
+        // Empty constructor with no arguments
     }
 
     public CitationFormUI(Stage primaryStage) {
@@ -44,8 +46,6 @@ public class CitationFormUI extends Application {
 
         GridPane grid = createCitationForm();
         Scene scene = new Scene(grid, 800, 600);
-        // Add the style.css file
-        scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/style.css")).toExternalForm());
         primaryStage.setScene(scene);
 
         primaryStage.show();
@@ -57,9 +57,11 @@ public class CitationFormUI extends Application {
         grid.setHgap(10);
         grid.setVgap(10);
         grid.setPadding(new Insets(25, 25, 25, 25));
+        grid.setStyle("-fx-background-color: lightblue;");
+
 
         Label titleLabel = new Label("Citation Form");
-        titleLabel.setStyle("-fx-font-size: 20px;");
+        titleLabel.setStyle("-fx-font-size: 50px;");
 
         citationNumberField = new TextField();
         officerBadgeNumberField = new TextField();
@@ -73,8 +75,12 @@ public class CitationFormUI extends Application {
 
         citationTypeComboBox.getItems().addAll("Moving Violation", "Parking Ticket", "Fix-it Ticket");
 
-        Button submitButton = new Button("Submit");
-        Button printButton = new Button("Print Citation");
+        Button submitPrintButton = new Button("Submit + Print Citation");
+        submitPrintButton.setStyle("-fx-font-size: 15px; -fx-font-weight: 900;");
+        submitPrintButton.setPrefSize(200, 50);
+        Button returnButton = new Button("Return");
+        returnButton.setStyle("-fx-font-size: 15px; -fx-font-weight: 900;");
+        returnButton.setPrefSize(150, 50);
 
         grid.add(titleLabel, 0, 0, 2, 1);
         grid.add(new Label("Citation Number:"), 0, 1);
@@ -96,17 +102,19 @@ public class CitationFormUI extends Application {
         grid.add(new Label("Citation Type:"), 0, 9);
         grid.add(citationTypeComboBox, 1, 9);
 
-        grid.add(submitButton, 0, 10);
-        grid.add(printButton, 1, 10);
+        grid.add(returnButton, 0, 10);
+        grid.add(submitPrintButton, 1, 10);
 
-        // Handle submission when the Submit button is clicked
-        submitButton.setOnAction(e -> {
+        //Handle submission when the Submit button is clicked
+        submitPrintButton.setOnAction(e -> {
             saveCitation();
+            generateRandomCitationNumber();
+
         });
 
         // Handle printing when the Print button is clicked
-        printButton.setOnAction(e -> {
-            printCitation();
+        returnButton.setOnAction(e -> {
+            returnClick(primaryStage);
         });
 
         return grid;
@@ -156,8 +164,12 @@ public class CitationFormUI extends Application {
         return (int) (Math.random() * 100000) + 1;
     }
 
-    private void printCitation() {
+    private void returnClick(Stage currentStage) {
+        currentStage.close();
+        OfficerPageUI officerPageUI = new OfficerPageUI();
+        officerPageUI.start(currentStage);
     }
+
 
     private void showAlert(String title, String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);

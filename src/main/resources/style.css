@@ -6,7 +6,7 @@
 
 /* style.css */
 .label {
-    -fx-font-size: 20px;
+    -fx-font-size: 12px;
      -fx-alignment: center;
 
 }
@@ -39,13 +39,7 @@
     -fx-text-fill: #ff0000; /* Text color for alerts */
 }
 
-/* custom-button.css */
-.custom-button {
-    -fx-background-color: #4CAF50; /* Background color */
-    -fx-text-fill: white; /* Text color */
-    -fx-font-size: 16px; /* Font size */
-    -fx-padding: 10px 20px; /* Padding */
-}
+
 
 /* Style for TableView */
 .table-view {
@@ -84,10 +78,6 @@ systemLabel.setStyle("-fx-alignment: center; -fx-font-size: 20px;");
     -fx-text-fill: white; /* Text color for buttons */
 }
 
-/* Style for buttons on hover (optional) */
-.button.officer-action-button:hover {
-    -fx-background-color: #45a049; /* Button background color on hover */
-}
 
 /* Style for text fields */
 .text-field.officer-input-field {
@@ -110,19 +100,5 @@ systemLabel.setStyle("-fx-alignment: center; -fx-font-size: 20px;");
     -fx-text-fill: #ff0000; /* Text color for alerts */
 }
 
-/* Style for TableView */
-.table-view.officer-table {
-    -fx-font-size: 16px; /* Font size for TableView */
-    -fx-pref-width: 800px; /* Preferred width for TableView */
-}
 
-/* Style for column headers in TableView */
-.table-view.officer-table .column-header {
-    -fx-font-size: 18px; /* Font size for column headers */
-    -fx-text-fill: #333333; /* Text color for column headers */
-}
 
-/* Style for TableView cells */
-.table-view.officer-table .table-row-cell {
-    -fx-font-size: 16px; /* Font size for row content */
-}
