@@ -3,6 +3,7 @@ module com.example.tcrs {
     requires javafx.fxml;
     requires javafx.graphics;
     requires java.sql;
+    requires java.management;
 
     // Opens the controllers package to javafx.fxml and javafx.graphics which are required for FXML loaders and JavaFX property access
     opens com.schoolproject.tcrs.controllers to javafx.fxml, javafx.graphics;

@@ -4,9 +4,10 @@ import com.schoolproject.tcrs.controllers.UserController;
 import com.schoolproject.tcrs.models.User;
 import javafx.application.Application;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.layout.GridPane;
+import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
 import java.util.Objects;
@@ -23,29 +24,42 @@ public class MainUI extends Application {
 
         // Load the CSS file and add it to the scene's stylesheets
         String cssPath = Objects.requireNonNull(MainUI.class.getResource("/style.css")).toExternalForm();
-        Scene scene = new Scene(createMainGrid(primaryStage), 800, 600);
+
+        // Create a StackPane and add the main layout to it
+        StackPane root = new StackPane();
+        root.getChildren().add(createMainStack(primaryStage));
+
+        // Create the scene with the StackPane
+        Scene scene = new Scene(root, 800, 600);
         scene.getStylesheets().add(cssPath); // Add the CSS file
 
         primaryStage.setScene(scene);
         primaryStage.show();
     }
 
-    private GridPane createMainGrid(Stage primaryStage) {
-        GridPane grid = new GridPane();
-        grid.setAlignment(javafx.geometry.Pos.CENTER);
-        grid.setHgap(100);
-        grid.setVgap(100);
-        grid.setPadding(new Insets(25, 25, 25, 25)); // Reduce top padding to 10
-
-        Label systemLabel = new Label("Traffic Citation Reporting System");
-        systemLabel.setStyle("-fx-font-size: 20px;");
+    private StackPane createMainStack(Stage primaryStage) {
+        StackPane stackPane = new StackPane();
+        stackPane.setPadding(new Insets(20));
 
         Button officerButton = new Button("Officer");
-        Button driverButton = new Button("Driver");
+        officerButton.setPrefSize(100, 50);
 
-        grid.add(systemLabel, 0, 0, 2, 1);
-        grid.add(officerButton, 0, 1);
-        grid.add(driverButton, 1, 1);
+        Button driverButton = new Button("Driver");
+        driverButton.setPrefSize(100, 50);
+
+        Label systemLabel = new Label("Traffic Citation Reporting System");
+        systemLabel.setStyle("-fx-font-size: 40px; -fx-font-weight: 100;");
+
+        HBox buttonBox = new HBox(40, officerButton, driverButton);
+        buttonBox.setAlignment(Pos.CENTER);
+
+        VBox containerBox = new VBox(150, systemLabel, buttonBox);
+        containerBox.setAlignment(Pos.CENTER);
+
+        // Adjust the top margin of the systemLabel to move it up
+        VBox.setMargin(systemLabel, new Insets(-10, 0, 0, 0)); // Negative top margin
+
+        stackPane.getChildren().add(containerBox);
 
         officerButton.setOnAction(e -> {
             openOfficerLoginPage(primaryStage);
@@ -55,8 +69,11 @@ public class MainUI extends Application {
             openDriverPageUI(primaryStage);
         });
 
-        return grid;
+        return stackPane;
     }
+
+
+
 
     private void openOfficerLoginPage(Stage primaryStage) {
         Stage officerLoginStage = new Stage();

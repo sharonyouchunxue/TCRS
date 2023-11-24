@@ -4,17 +4,22 @@ import com.schoolproject.tcrs.controllers.DriverController;
 import com.schoolproject.tcrs.controllers.VehicleController;
 import com.schoolproject.tcrs.models.Driver;
 import com.schoolproject.tcrs.models.User;
+import javax.management.Query;
+
 import com.schoolproject.tcrs.models.Vehicle;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.util.Objects;
@@ -30,69 +35,72 @@ public class OfficerPageUI extends Application {
     }
 
     @Override
-    public void start(Stage primaryStage) {
-        primaryStage.setTitle("Traffic Citation Reporting System - Officer");
+    public void start(Stage policeActionStage) {
+        StackPane stackPane = new StackPane();
+        stackPane.setPadding(new Insets(30));
+        stackPane.setStyle("-fx-background-color: lightblue;");
 
-        // Create a GridPane for layout
-        GridPane grid = new GridPane();
-        grid.setAlignment(javafx.geometry.Pos.CENTER);
+        // ITEMS
 
-        grid.setHgap(100);
-        grid.setVgap(70); // Adjust the vertical gap to control the spacing between rows
-        grid.setPadding(new Insets(25, 25, 25, 25));
+        Button queryButton = new Button("Query Local Agency");
+        queryButton.setStyle("-fx-font-size: 15px; -fx-font-weight: 900;");
+        queryButton.setPrefSize(250, 80);
 
-       // Create a label for the system name
-        Label systemLabel = new Label("Traffic Citation Reporting System");
-        systemLabel.setStyle("-fx-font-size: 30px;");
-
-      // Create buttons for various officer actions
-        Button createCitationButton = new Button("Issue Citation");
-        createCitationButton.setMinWidth(180);
-        Button viewCitationsButton = new Button("View Citations");
-        viewCitationsButton.setMinWidth(180);
-        Button queryAgencyButton = new Button("Local Agency");
-        queryAgencyButton.setMinWidth(180);
         Button logoutButton = new Button("Logout");
-        logoutButton.setMinWidth(180);
+        logoutButton.setPrefSize(150, 60);
+        logoutButton.setStyle("-fx-font-size: 15px; -fx-font-weight: 900;");
+
+        Button createCitationButton = new Button("Issue Citation");
+        createCitationButton.setPrefSize(250, 80);
+        createCitationButton.setStyle("-fx-font-size: 15px; -fx-font-weight: 900;");
+
+        Button viewCitationsButton = new Button("View Citations");
+        viewCitationsButton.setPrefSize(250, 80);
+        viewCitationsButton.setStyle("-fx-font-size: 15px; -fx-font-weight: 900;");
+
+        Label titleLabel = new Label("Choose Your Action");
+        titleLabel.setStyle("-fx-font-size: 50px; -fx-font-weight: 900;");
+
+        // BOXES FOR ITEMS
+        VBox buttonsBox1 = new VBox(createCitationButton, viewCitationsButton,queryButton, logoutButton);
+        buttonsBox1.setAlignment(Pos.CENTER);
+        buttonsBox1.setSpacing(30);
+        buttonsBox1.setPadding(new Insets(100, 0, 0, 0));
 
 
-        // Add labels and buttons to the GridPane
-        grid.add(systemLabel, 0, 0, 2, 1);
-        // First line of buttons
-        grid.add(createCitationButton, 0, 1);
-        grid.add(viewCitationsButton, 1, 1);
 
-        // Second line of buttons
-        grid.add(queryAgencyButton, 0, 2);
-        grid.add(logoutButton, 1, 2);
+        HBox titleBox = new HBox(titleLabel);
+        titleBox.setAlignment(Pos.TOP_CENTER);
+        titleBox.setSpacing(20);
+
+
+        // COMPILE BOXES INTO STACKPANE
+        stackPane.getChildren().addAll(titleBox, buttonsBox1);
+
+        Scene scene = new Scene(stackPane, 600, 600);
+        policeActionStage.setTitle("Police Action");
+        policeActionStage.setScene(scene);
+        policeActionStage.show();
 
 
         // Set actions for the buttons
         createCitationButton.setOnAction(e -> {
             // Open the citation issuance form
-            openCitationForm(primaryStage);
+            openCitationForm(policeActionStage);
         });
 
         viewCitationsButton.setOnAction(e -> {
             // Redirect to the officer's "View Citations" page
-            openViewCitationsPage();
+            openViewCitationsPage(policeActionStage);
         });
 
-        queryAgencyButton.setOnAction(e -> openQueryAgencyForm());
+        queryButton.setOnAction(e -> openQueryAgencyForm());
 
         logoutButton.setOnAction(e -> {
-            // Call the logout method of the User or clear user session, then close the Officer page.
-            authenticatedUser.logout();
-            primaryStage.close();
+            policeActionStage.close();
         });
 
-        // Create the scene
-        Scene scene = new Scene(grid, 800, 600);
-        // Add the style.css file
-        scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/style.css")).toExternalForm());
-        primaryStage.setScene(scene);
 
-        primaryStage.show();
     }
 
     public static void main(String[] args) {
@@ -104,9 +112,10 @@ public class OfficerPageUI extends Application {
         issueCitationForm.start(primaryStage);
     }
 
-    private void openViewCitationsPage() {
-        openViewCitationsPage viewCitationsUI = new openViewCitationsPage();
-        viewCitationsUI.start(new Stage());
+    private void openViewCitationsPage(Stage currentStage) {
+        currentStage.close();
+        openViewCitationsPage openViewCitationsPage = new openViewCitationsPage();
+        openViewCitationsPage.start(currentStage);
     }
 
     private void openQueryAgencyForm() {
