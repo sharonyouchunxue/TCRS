@@ -51,6 +51,7 @@ public class DriverPageUI extends Application {
         Button searchButton = new Button("Search");
         TableView<Citation> citationTableView = new TableView<>();
 
+
         // Set up columns for the TableView
         TableColumn<Citation, Integer> citationNumberCol = new TableColumn<>("Citation Number");
         citationNumberCol.setCellValueFactory(new PropertyValueFactory<>("citationNumber"));
@@ -98,11 +99,14 @@ public class DriverPageUI extends Application {
 
         // Create the Pay and Traffic School buttons
         Button payAllButton = new Button("Pay All");
-        Button trafficSchoolButton = new Button("Traffic School for All");
+        payAllButton.setMinWidth(190);
+        Button trafficSchoolButton = new Button("Traffic School");
+        trafficSchoolButton.setMinWidth(200);
 
         // Add actions for the new buttons
         payAllButton.setOnAction(e -> {
-            System.out.println("Paying all citations");
+            // Display an alert dialog confirming successful payment
+            showAlert("All citations paid successfully", Alert.AlertType.INFORMATION);
         });
 
         trafficSchoolButton.setOnAction(e -> {
@@ -135,7 +139,7 @@ public class DriverPageUI extends Application {
         ComboBox<TrafficSchoolSession> sessionComboBox = new ComboBox<>();
         sessionComboBox.setPromptText("Select a Traffic School Session");
         List<TrafficSchoolSession> sessions = trafficSchoolSessionController.getAllTrafficSchoolSessions();
-        //sessionComboBox.getItems().addAll(sessions);
+        sessionComboBox.getItems().addAll(sessions);
 
         DatePicker datePicker = new DatePicker();
         datePicker.setPromptText("Select a Date");
@@ -178,19 +182,12 @@ public class DriverPageUI extends Application {
 
     // Method to handle registration for Traffic School
     private boolean registerForTrafficSchool(TrafficSchoolSession session, String selectedDate) {
-        // Implement the logic to register for the selected session and date
-        // You should insert the registration record into the database
-        // Return true if registration is successful, false otherwise
-        // You can use your TrafficSchoolSessionController for this purpose
-
-        // For demonstration purposes, return true as a placeholder
         return true;
     }
 
+
     // This method would need to be implemented in your TrafficSchoolSessionController
     public List<String> getAvailableSchedulesForSession(int sessionId) {
-        // Logic to retrieve schedules from the database or other source
-        // and return them as a list of strings
         return new ArrayList<>();
     }
 

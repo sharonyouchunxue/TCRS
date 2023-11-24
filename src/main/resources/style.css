@@ -74,6 +74,7 @@
     -fx-font-size: 24px; /* Font size for the system label */
     -fx-text-fill: #333333; /* Text color for the system label */
 }
+systemLabel.setStyle("-fx-alignment: center; -fx-font-size: 20px;");
 
 /* Style for buttons */
 .button.officer-action-button {

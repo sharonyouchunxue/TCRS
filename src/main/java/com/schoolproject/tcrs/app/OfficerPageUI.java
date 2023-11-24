@@ -36,27 +36,35 @@ public class OfficerPageUI extends Application {
         // Create a GridPane for layout
         GridPane grid = new GridPane();
         grid.setAlignment(javafx.geometry.Pos.CENTER);
+
         grid.setHgap(100);
-        grid.setVgap(20); // Adjust the vertical gap to control the spacing between rows
+        grid.setVgap(70); // Adjust the vertical gap to control the spacing between rows
         grid.setPadding(new Insets(25, 25, 25, 25));
 
        // Create a label for the system name
         Label systemLabel = new Label("Traffic Citation Reporting System");
-        systemLabel.setStyle("-fx-font-size: 20px;");
+        systemLabel.setStyle("-fx-font-size: 30px;");
 
       // Create buttons for various officer actions
         Button createCitationButton = new Button("Issue Citation");
+        createCitationButton.setMinWidth(180);
         Button viewCitationsButton = new Button("View Citations");
-        Button queryAgencyButton = new Button("Query Local Agency");
+        viewCitationsButton.setMinWidth(180);
+        Button queryAgencyButton = new Button("Local Agency");
+        queryAgencyButton.setMinWidth(180);
         Button logoutButton = new Button("Logout");
+        logoutButton.setMinWidth(180);
 
 
-     // Add labels and buttons to the GridPane
+        // Add labels and buttons to the GridPane
         grid.add(systemLabel, 0, 0, 2, 1);
-        grid.add(createCitationButton, 0, 1, 2, 1);
-        grid.add(viewCitationsButton, 0, 2, 2, 1);
-        grid.add(queryAgencyButton, 0, 3, 2, 1);
-        grid.add(logoutButton, 0, 4, 2, 1);
+        // First line of buttons
+        grid.add(createCitationButton, 0, 1);
+        grid.add(viewCitationsButton, 1, 1);
+
+        // Second line of buttons
+        grid.add(queryAgencyButton, 0, 2);
+        grid.add(logoutButton, 1, 2);
 
 
         // Set actions for the buttons
@@ -74,7 +82,7 @@ public class OfficerPageUI extends Application {
 
         logoutButton.setOnAction(e -> {
             // Call the logout method of the User or clear user session, then close the Officer page.
-            authenticatedUser.logout(); // Assuming you have a logout method in your User class.
+            authenticatedUser.logout();
             primaryStage.close();
         });
 
@@ -116,7 +124,8 @@ public class OfficerPageUI extends Application {
         TextArea resultArea = new TextArea();
         resultArea.setEditable(false);
 
-        Button submitQueryButton = new Button("Submit Query");
+        Button submitQueryButton = new Button("Submit");
+        submitQueryButton.setMinWidth(150);
         submitQueryButton.setOnAction(e -> {
             String vehiclePlate = vehiclePlateField.getText();
             resultArea.clear();
@@ -160,7 +169,7 @@ public class OfficerPageUI extends Application {
                         "Status: %s",
                 vehicle.getID(),
                 vehicle.getLicensePlateNumber(),
-                vehicle.getRegistrationExpiryDate().toString(), // You might want to format this date
+                vehicle.getRegistrationExpiryDate().toString(),
                 vehicle.getMakeModel(),
                 vehicle.getYear(),
                 vehicle.getVehicleColour(),

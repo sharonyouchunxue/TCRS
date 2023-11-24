@@ -60,7 +60,6 @@ public class UserController {
              ResultSet rs = pstmt.executeQuery()) {
 
             while (rs.next()) {
-                // Assuming you have getters in your User class, construct the User object
                 User user = new User(
                         rs.getInt("ID"),
                         rs.getString("Username"),

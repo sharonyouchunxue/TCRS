@@ -99,11 +99,9 @@ public class TrafficSchoolSessionController {
         List<TrafficSchoolSession> availableSessions = new ArrayList<>();
         try (Connection connection = DatabaseConnector.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM TrafficSchoolSession WHERE /* your condition for available sessions */")) {
-            // You should add a WHERE clause in your SQL to filter only available sessions
             // For example, WHERE `Schedule` > CURRENT_DATE and `SeatsAvailable` > 0
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 while (resultSet.next()) {
-                    //... extract data from resultSet and add to availableSessions
                 }
             }
         } catch (SQLException e) {
