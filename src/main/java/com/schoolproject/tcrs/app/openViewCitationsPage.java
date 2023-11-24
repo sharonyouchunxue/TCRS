@@ -15,6 +15,7 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 import java.util.List;
+import java.util.Objects;
 
 public class openViewCitationsPage extends Application {
     private CitationController citationController;
@@ -30,8 +31,12 @@ public class openViewCitationsPage extends Application {
 
         GridPane grid = createViewCitationsPage(primaryStage);
         Scene scene = new Scene(grid, 800, 600);
-        primaryStage.setScene(scene);
 
+        // Load the CSS file and add it to the scene's stylesheets
+        String cssPath = Objects.requireNonNull(getClass().getResource("/style.css")).toExternalForm();
+        scene.getStylesheets().add(cssPath);
+
+        primaryStage.setScene(scene);
         primaryStage.show();
     }
 

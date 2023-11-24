@@ -16,6 +16,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.Objects;
 
 public class CitationFormUI extends Application {
     private Stage primaryStage;
@@ -30,7 +31,6 @@ public class CitationFormUI extends Application {
     private ComboBox<String> citationTypeComboBox;
 
     public CitationFormUI() {
-        // Empty constructor with no arguments
     }
 
     public CitationFormUI(Stage primaryStage) {
@@ -44,6 +44,8 @@ public class CitationFormUI extends Application {
 
         GridPane grid = createCitationForm();
         Scene scene = new Scene(grid, 800, 600);
+        // Add the style.css file
+        scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/style.css")).toExternalForm());
         primaryStage.setScene(scene);
 
         primaryStage.show();

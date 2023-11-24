@@ -19,16 +19,17 @@
 
 /* Style for text fields */
 .text-field {
+    -fx-font-size: 18px; /* Font size for text fields */
+    -fx-pref-height: 30px; /* Preferred height for text fields */
+    -fx-pref-width: 120px;
+
+}
+
+/* Style for text fields and password fields */
+.text-field, .password-field {
     -fx-font-size: 14px; /* Font size for text fields */
     -fx-pref-height: 30px; /* Preferred height for text fields */
 }
-
-/* Style for password fields */
-.password-field {
-    -fx-font-size: 14px; /* Font size for password fields */
-    -fx-pref-height: 30px; /* Preferred height for password fields */
-}
-
 /* Style for alerts (error messages) */
 .alert {
     -fx-font-size: 16px; /* Font size for alerts */
@@ -36,4 +37,91 @@
     -fx-border-color: #ff0000; /* Border color for alerts */
     -fx-border-width: 2px; /* Border width for alerts */
     -fx-text-fill: #ff0000; /* Text color for alerts */
+}
+
+/* custom-button.css */
+.custom-button {
+    -fx-background-color: #4CAF50; /* Background color */
+    -fx-text-fill: white; /* Text color */
+    -fx-font-size: 16px; /* Font size */
+    -fx-padding: 10px 20px; /* Padding */
+}
+
+/* Style for TableView */
+.table-view {
+    -fx-font-size: 16px;
+}
+
+/* style.css */
+.table-view .column-header {
+    -fx-font-size: 16px; /* Set the font size for column headers */
+    -fx-alignment: center; /* Center-align text in column headers */
+}
+
+/* Style for TableView cells */
+.table-row-cell {
+    -fx-font-size: 14px; /* Set the font size for row content */
+}
+
+/* Apply styles to the main scene */
+.root {
+    -fx-background-color: #add8e6; /* Background color for the entire scene */
+    -fx-font-family: "Arial", sans-serif; /* Default font family */
+}
+
+/* Style for the system label */
+.label.system-label {
+    -fx-font-size: 24px; /* Font size for the system label */
+    -fx-text-fill: #333333; /* Text color for the system label */
+}
+
+/* Style for buttons */
+.button.officer-action-button {
+    -fx-font-size: 10px; /* Font size for buttons */
+    -fx-pref-width: 300px; /* Preferred width for buttons */
+    -fx-background-color: #4CAF50; /* Button background color */
+    -fx-text-fill: white; /* Text color for buttons */
+}
+
+/* Style for buttons on hover (optional) */
+.button.officer-action-button:hover {
+    -fx-background-color: #45a049; /* Button background color on hover */
+}
+
+/* Style for text fields */
+.text-field.officer-input-field {
+    -fx-font-size: 18px; /* Font size for text fields */
+    -fx-pref-height: 30px; /* Preferred height for text fields */
+    -fx-pref-width: 200px; /* Preferred width for text fields */
+}
+
+/* Style for text fields and password fields */
+.text-field.officer-input-field, .password-field.officer-input-field {
+    -fx-font-size: 16px; /* Font size for text fields */
+}
+
+/* Style for alerts (error messages) */
+.alert.officer-alert {
+    -fx-font-size: 18px; /* Font size for alerts */
+    -fx-background-color: #ffcccc; /* Background color for alerts */
+    -fx-border-color: #ff0000; /* Border color for alerts */
+    -fx-border-width: 2px; /* Border width for alerts */
+    -fx-text-fill: #ff0000; /* Text color for alerts */
+}
+
+/* Style for TableView */
+.table-view.officer-table {
+    -fx-font-size: 16px; /* Font size for TableView */
+    -fx-pref-width: 800px; /* Preferred width for TableView */
+}
+
+/* Style for column headers in TableView */
+.table-view.officer-table .column-header {
+    -fx-font-size: 18px; /* Font size for column headers */
+    -fx-text-fill: #333333; /* Text color for column headers */
+}
+
+/* Style for TableView cells */
+.table-view.officer-table .table-row-cell {
+    -fx-font-size: 16px; /* Font size for row content */
 }

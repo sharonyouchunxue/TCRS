@@ -9,6 +9,8 @@ import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
+import java.util.Objects;
+
 public class MainUI extends Application {
 
     public static void main(String[] args) {
@@ -20,7 +22,7 @@ public class MainUI extends Application {
         primaryStage.setTitle("Traffic Citation Reporting System");
 
         // Load the CSS file and add it to the scene's stylesheets
-        String cssPath = MainUI.class.getResource("/style.css").toExternalForm();
+        String cssPath = Objects.requireNonNull(MainUI.class.getResource("/style.css")).toExternalForm();
         Scene scene = new Scene(createMainGrid(primaryStage), 800, 600);
         scene.getStylesheets().add(cssPath); // Add the CSS file
 
@@ -31,15 +33,15 @@ public class MainUI extends Application {
     private GridPane createMainGrid(Stage primaryStage) {
         GridPane grid = new GridPane();
         grid.setAlignment(javafx.geometry.Pos.CENTER);
-        grid.setHgap(10);
-        grid.setVgap(10);
-        grid.setPadding(new Insets(25, 25, 25, 25));
+        grid.setHgap(100);
+        grid.setVgap(100);
+        grid.setPadding(new Insets(25, 25, 25, 25)); // Reduce top padding to 10
 
         Label systemLabel = new Label("Traffic Citation Reporting System");
         systemLabel.setStyle("-fx-font-size: 20px;");
 
-        Button officerButton = new Button("Officer Login");
-        Button driverButton = new Button("Driver Page");
+        Button officerButton = new Button("Officer");
+        Button driverButton = new Button("Driver");
 
         grid.add(systemLabel, 0, 0, 2, 1);
         grid.add(officerButton, 0, 1);
@@ -107,7 +109,6 @@ public class MainUI extends Application {
 
         primaryStage.close();
     }
-
 
     private void openDriverPageUI(Stage primaryStage) {
         // Launch the DriverPageUI directly

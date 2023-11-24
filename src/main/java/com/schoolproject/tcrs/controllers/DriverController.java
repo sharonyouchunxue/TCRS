@@ -11,31 +11,31 @@ import java.util.Date;
 
 public class DriverController {
 
-    public Driver getDriverDetails(String vehiclePlate, String fullName) {
+    public Driver getDriverDetails(String vehiclePlate) {
         try (Connection connection = DatabaseConnector.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(
                      "SELECT d.* FROM Driver d " +
-                             "JOIN Vehicle v ON d.LicenseNumber = v.DriverLicenseNumber " +
-                             "WHERE v.PlateNumber = ? AND CONCAT(d.FirstName, ' ', d.LastName) = ?")) {
+                             "JOIN Vehicle v ON d.LicenseNumber = v.DriverLicenseNumber " + //connect with foreign key
+                             "WHERE v.LicensePlateNumber = ?")) {
 
             preparedStatement.setString(1, vehiclePlate);
-            preparedStatement.setString(2, fullName);
 
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 if (resultSet.next()) {
                     String licenseNumber = resultSet.getString("LicenseNumber");
                     String firstName = resultSet.getString("FirstName");
                     String lastName = resultSet.getString("LastName");
-                    String address = resultSet.getString("Street") + ", " + resultSet.getString("City");
+                    String street = resultSet.getString("Street");
+                    String city = resultSet.getString("City");
                     String phoneNumber = resultSet.getString("PhoneNum");
                     Date dob = resultSet.getDate("DOB");
                     String height = resultSet.getString("Height");
-                    String eyeColour = resultSet.getString("EyeColor");
+                    String eyeColor = resultSet.getString("EyeColor");
                     Date licenseExpiryDate = resultSet.getDate("LicenseExpiryDate");
                     String status = resultSet.getString("Status");
 
-                    return new Driver(licenseNumber, firstName, lastName, address,
-                            phoneNumber, dob, height, eyeColour, licenseExpiryDate, status);
+                    return new Driver(licenseNumber, firstName, lastName, street + ", " + city,
+                            phoneNumber, dob, height, eyeColor, licenseExpiryDate, status);
                 }
             }
         } catch (SQLException e) {
@@ -44,9 +44,9 @@ public class DriverController {
         return null; // If driver not found or exception thrown
     }
 
-    public String notify(String vehiclePlate, String fullName) {
-        // Perform the database query using the vehicle plate and full name
-        Driver driver = getDriverDetails(vehiclePlate, fullName);
+    // Notify method needs to be updated accordingly to use the new method
+    public String notifyByPlate(String vehiclePlate) {
+        Driver driver = getDriverDetails(vehiclePlate);
 
         if (driver != null) {
             // Driver found, return driver information as a formatted string
@@ -61,8 +61,8 @@ public class DriverController {
                     "License Expiry Date: " + driver.getLicenseExpiryDate() + "\n" +
                     "Status: " + driver.getStatus();
         } else {
-            // No driver found with the given vehicle plate and full name
-            return "Driver not found for the given vehicle plate: " + vehiclePlate + " and full name: " + fullName;
+            // No driver found with the given vehicle plate
+            return "Driver not found for the given vehicle plate: " + vehiclePlate;
         }
     }
 

@@ -40,4 +40,8 @@ public class TrafficSchoolSession {
     public String getDriverLicenseNumber() {
         return driverLicenseNumber;
     }
+
+    public int getRegistrationID() {
+        return registrationID;
+    }
 }

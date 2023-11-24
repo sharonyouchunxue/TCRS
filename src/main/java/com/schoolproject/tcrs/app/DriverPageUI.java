@@ -1,7 +1,9 @@
 package com.schoolproject.tcrs.app;
 
 import com.schoolproject.tcrs.controllers.DriverController;
+import com.schoolproject.tcrs.controllers.TrafficSchoolSessionController;
 import com.schoolproject.tcrs.models.Citation;
+import com.schoolproject.tcrs.models.TrafficSchoolSession;
 import javafx.application.Application;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
@@ -13,8 +15,16 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+
 public class DriverPageUI extends Application {
     private DriverController driverController;
+    private TrafficSchoolSessionController trafficSchoolSessionController;
 
     public static void main(String[] args) {
         launch(args);
@@ -26,6 +36,7 @@ public class DriverPageUI extends Application {
 
         // Initialize DriverController
         driverController = new DriverController();
+        trafficSchoolSessionController = new TrafficSchoolSessionController();
 
         // Create a GridPane for layout
         GridPane grid = new GridPane();
@@ -95,7 +106,7 @@ public class DriverPageUI extends Application {
         });
 
         trafficSchoolButton.setOnAction(e -> {
-            System.out.println("Traffic school for all citations");
+            openTrafficSchoolRegistrationForm();
         });
 
         // Create a container for the new buttons
@@ -108,8 +119,85 @@ public class DriverPageUI extends Application {
 
         // Create the scene with VBox as the root
         Scene scene = new Scene(vbox, 800, 600);
-        scene.getStylesheets().add(getClass().getResource("/style.css").toExternalForm());
+        scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/style.css")).toExternalForm());
         primaryStage.setScene(scene);
         primaryStage.show();
     }
+
+    private void openTrafficSchoolRegistrationForm() {
+        Stage registrationStage = new Stage();
+        registrationStage.setTitle("Register for Traffic School");
+
+        VBox layout = new VBox(10);
+        layout.setPadding(new Insets(10));
+        layout.setAlignment(Pos.CENTER);
+
+        ComboBox<TrafficSchoolSession> sessionComboBox = new ComboBox<>();
+        sessionComboBox.setPromptText("Select a Traffic School Session");
+        List<TrafficSchoolSession> sessions = trafficSchoolSessionController.getAllTrafficSchoolSessions();
+        //sessionComboBox.getItems().addAll(sessions);
+
+        DatePicker datePicker = new DatePicker();
+        datePicker.setPromptText("Select a Date");
+
+        Button registerButton = new Button("Register");
+        registerButton.setOnAction(event -> {
+            TrafficSchoolSession selectedSession = sessionComboBox.getValue();
+            LocalDate selectedDate = datePicker.getValue();
+
+            if (selectedSession != null && selectedDate != null) {
+                // Convert the selected date to a formatted string (e.g., "yyyy-MM-dd")
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                String selectedDateString = selectedDate.format(formatter);
+
+                // Call the method to register for the selected session and date
+                boolean registrationSuccess = registerForTrafficSchool(selectedSession, selectedDateString);
+
+                if (registrationSuccess) {
+                    showAlert("Successfully registered for Traffic School on " + selectedDateString, Alert.AlertType.INFORMATION);
+                } else {
+                    showAlert("Failed to register for Traffic School on " + selectedDateString, Alert.AlertType.ERROR);
+                }
+            } else {
+                showAlert("Please select a session and date for registration.", Alert.AlertType.WARNING);
+            }
+        });
+
+        layout.getChildren().addAll(
+                new Label("Available Sessions:"),
+                sessionComboBox,
+                new Label("Select a Date:"),
+                datePicker,
+                registerButton
+        );
+
+        Scene registrationScene = new Scene(layout, 350, 250);
+        registrationStage.setScene(registrationScene);
+        registrationStage.show();
+    }
+
+    // Method to handle registration for Traffic School
+    private boolean registerForTrafficSchool(TrafficSchoolSession session, String selectedDate) {
+        // Implement the logic to register for the selected session and date
+        // You should insert the registration record into the database
+        // Return true if registration is successful, false otherwise
+        // You can use your TrafficSchoolSessionController for this purpose
+
+        // For demonstration purposes, return true as a placeholder
+        return true;
+    }
+
+    // This method would need to be implemented in your TrafficSchoolSessionController
+    public List<String> getAvailableSchedulesForSession(int sessionId) {
+        // Logic to retrieve schedules from the database or other source
+        // and return them as a list of strings
+        return new ArrayList<>();
+    }
+
+    private void showAlert(String content, Alert.AlertType alertType) {
+        Alert alert = new Alert(alertType);
+        alert.setContentText(content);
+        alert.showAndWait();
+    }
+
 }
