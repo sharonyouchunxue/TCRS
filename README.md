@@ -34,14 +34,14 @@ This tutorial uses [IntelliJ IDEA](https://www.jetbrains.com/idea/) and Java SE 
 3. In the blank space type in `/Applications/JavaFX Scene Builder 2.0.app` or use `...` to browse to the application.
 4. Once done click on Ok.
 
-### - Run the codes in IntelliJ IDEA
+## - Run the codes in IntelliJ IDEA
 
 1. Download and unzip the project zipped file pack.
 2. Click the `File` to create a new `Project from Existing Sources`
 3. Open the downloaded file.
 4. Run `src/main/java/com.schoolproject.tcrs/app/MainUI` to start the program.
 
-### - Run the program through .jar file
+## - Run the program through .jar file
 
 1. Ensure that Java is installed.
 2. Double-click on the `TCRS.jar` file, or run it via command line by navigating to the directory containing the `.jar ` file and using command `java -jar TCRS.jar`
