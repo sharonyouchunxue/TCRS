@@ -44,4 +44,4 @@ This tutorial uses [IntelliJ IDEA](https://www.jetbrains.com/idea/) and Java SE 
 ### - Run the program through .jar file
 
 1. Ensure that Java is installed.
-2. Double-click on the `TCRS05A.jar` file, or run it via command line by navigating to the directory containing the `.jar ` file and using command `java - jar TCRS05A.jar`
+2. Double-click on the `TCRS.jar` file, or run it via command line by navigating to the directory containing the `.jar ` file and using command `java -jar TCRS.jar`
