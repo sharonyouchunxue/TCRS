@@ -145,7 +145,6 @@ public class TrafficSchoolSessionController {
 
             // Process the result set
             while (resultSet.next()) {
-                // Assuming the schedule is stored as a String in the database
                 String schedule = resultSet.getString("Schedule");
                 availableSchedules.add(schedule);
             }

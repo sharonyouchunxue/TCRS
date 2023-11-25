@@ -106,11 +106,13 @@ public class DriverPageUI extends Application {
             citationTableView.setItems(citations);
         });
 
-        // Create the Pay and Traffic School buttons
+        // Create the Pay and Traffic School buttons and return button
         Button payAllButton = new Button("Pay All");
         payAllButton.setPrefSize(150,50);
         Button trafficSchoolButton = new Button("Traffic School for All");
         trafficSchoolButton.setPrefSize(200, 50);
+        Button returnButton = new Button("Return");
+        returnButton.setPrefSize(100,50);
 
         // Add actions for the new buttons
         payAllButton.setOnAction(e -> {
@@ -122,13 +124,24 @@ public class DriverPageUI extends Application {
             openTrafficSchoolRegistrationForm();
         });
 
+        returnButton.setOnAction(e -> {
+            // Instantiate MainUI and call its start method
+            MainUI mainUI = new MainUI();
+            mainUI.start(new Stage());
+
+            // Close the current stage
+            primaryStage.close();
+        });
+
         // Create a container for the new buttons
-        HBox buttonContainer = new HBox(10, payAllButton, trafficSchoolButton);
+        HBox buttonContainer = new HBox(10, payAllButton, trafficSchoolButton, returnButton);
         buttonContainer.setAlignment(Pos.CENTER);
 
         // Create a VBox for layout and add grid and buttonContainer
         VBox vbox = new VBox(grid, buttonContainer);
         vbox.setPadding(new Insets(10));
+        vbox.setAlignment(Pos.CENTER);
+        vbox.setSpacing(10);
 
         // Load the CSS file
         String cssPath = Objects.requireNonNull(getClass().getResource("/style.css")).toExternalForm();
@@ -136,6 +149,7 @@ public class DriverPageUI extends Application {
         Scene scene = new Scene(vbox, 800, 600);
         primaryStage.setScene(scene);
         primaryStage.show();
+
     }
 
     private void openTrafficSchoolRegistrationForm() {
@@ -195,8 +209,6 @@ public class DriverPageUI extends Application {
         return true;
     }
 
-
-    // This method would need to be implemented in your TrafficSchoolSessionController
     public List<String> getAvailableSchedulesForSession(int sessionId) {
         return new ArrayList<>();
     }

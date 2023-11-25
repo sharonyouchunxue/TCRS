@@ -112,12 +112,35 @@ public class openViewCitationsPage extends Application {
             primaryStage.close();
         });
 
+        // Create a return button
+        Button returnButton = new Button("Return");
+        returnButton.setPrefSize(150,50);
+        returnButton.setOnAction(e -> clickReturn(primaryStage));
+
         // Add elements to the GridPane
         grid.add(titleLabel, 0, 0, 2, 1);
         grid.add(citationTableView, 0, 1);
         grid.add(closeButton, 0, 2);
+        grid.add(returnButton, 1, 2); // Adding the return button to the grid
 
         return grid;
+    }
+
+    private void clickReturn(Stage currentStage){
+        try {
+            // Hide the current stage
+            currentStage.hide();
+
+            // Initialize and start the OfficerPageUI
+            OfficerPageUI officerPageUI = new OfficerPageUI();
+            officerPageUI.start(new Stage()); // Using a new Stage
+
+            // Optionally, show the current stage again if needed
+            // currentStage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+            // Handle exception or show an error message
+        }
     }
 
     // Helper class to display citation data in the TableView

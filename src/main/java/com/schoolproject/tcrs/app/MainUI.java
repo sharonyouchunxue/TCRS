@@ -72,9 +72,6 @@ public class MainUI extends Application {
         return stackPane;
     }
 
-
-
-
     private void openOfficerLoginPage(Stage primaryStage) {
         Stage officerLoginStage = new Stage();
         officerLoginStage.setTitle("Officer Login");

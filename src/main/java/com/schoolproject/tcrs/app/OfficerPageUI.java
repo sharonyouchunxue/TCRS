@@ -41,13 +41,12 @@ public class OfficerPageUI extends Application {
         stackPane.setStyle("-fx-background-color: lightblue;");
 
         // ITEMS
-
         Button queryButton = new Button("Query Local Agency");
         queryButton.setStyle("-fx-font-size: 15px; -fx-font-weight: 900;");
         queryButton.setPrefSize(250, 80);
 
         Button logoutButton = new Button("Logout");
-        logoutButton.setPrefSize(150, 60);
+        logoutButton.setPrefSize(250, 80);
         logoutButton.setStyle("-fx-font-size: 15px; -fx-font-weight: 900;");
 
         Button createCitationButton = new Button("Issue Citation");
@@ -58,21 +57,28 @@ public class OfficerPageUI extends Application {
         viewCitationsButton.setPrefSize(250, 80);
         viewCitationsButton.setStyle("-fx-font-size: 15px; -fx-font-weight: 900;");
 
+        // Create a return button
+        Button returnButton = new Button("Return to Main Page");
+        returnButton.setStyle("-fx-font-size: 15px; -fx-font-weight: 900;");
+        returnButton.setPrefSize(250, 80);
+        returnButton.setOnAction(e -> {
+            MainUI mainUI = new MainUI();
+            mainUI.start(new Stage());
+            policeActionStage.close();
+        });
+
         Label titleLabel = new Label("Choose Your Action");
         titleLabel.setStyle("-fx-font-size: 50px; -fx-font-weight: 900;");
 
         // BOXES FOR ITEMS
-        VBox buttonsBox1 = new VBox(createCitationButton, viewCitationsButton,queryButton, logoutButton);
+        VBox buttonsBox1 = new VBox(createCitationButton, viewCitationsButton, queryButton, logoutButton, returnButton);
         buttonsBox1.setAlignment(Pos.CENTER);
         buttonsBox1.setSpacing(30);
         buttonsBox1.setPadding(new Insets(100, 0, 0, 0));
 
-
-
         HBox titleBox = new HBox(titleLabel);
         titleBox.setAlignment(Pos.TOP_CENTER);
         titleBox.setSpacing(20);
-
 
         // COMPILE BOXES INTO STACKPANE
         stackPane.getChildren().addAll(titleBox, buttonsBox1);
@@ -81,7 +87,6 @@ public class OfficerPageUI extends Application {
         policeActionStage.setTitle("Police Action");
         policeActionStage.setScene(scene);
         policeActionStage.show();
-
 
         // Set actions for the buttons
         createCitationButton.setOnAction(e -> {
@@ -99,8 +104,6 @@ public class OfficerPageUI extends Application {
         logoutButton.setOnAction(e -> {
             policeActionStage.close();
         });
-
-
     }
 
     public static void main(String[] args) {
@@ -157,7 +160,15 @@ public class OfficerPageUI extends Application {
         queryGrid.add(new Label("Vehicle Plate Number:"), 0, 0);
         queryGrid.add(vehiclePlateField, 1, 0);
         queryGrid.add(submitQueryButton, 1, 1);
-        queryGrid.add(resultArea, 0, 2, 2, 1); // Span 2 columns for the result area
+        queryGrid.add(resultArea, 0, 2, 2, 1);
+
+        Button returnButton = new Button("Return");
+        returnButton.setOnAction(e -> {
+            queryStage.close();
+        });
+
+        // Add the return button to the grid
+        queryGrid.add(returnButton, 1, 3);
 
         Scene queryScene = new Scene(queryGrid, 800, 600);
         // Load the CSS file and add it to the scene's stylesheets

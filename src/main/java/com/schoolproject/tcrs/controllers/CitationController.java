@@ -114,8 +114,9 @@ public class CitationController {
 
     // Add the saveCitation method here
     public void saveCitation(Citation citation) {
+        Connection connection = null;
         try {
-            Connection connection = DatabaseConnector.getConnection();
+            connection = DatabaseConnector.getConnection();
             connection.setAutoCommit(false); // Disable auto-commit mode
 
             String insertQuery = "INSERT INTO Citation (CitationNumber, PoliceOfficerBadgeNumber, ViolationCode, DriverLicenseNumber, VehicleID, Date, Time, Location, Type) " +
@@ -135,15 +136,35 @@ public class CitationController {
                 preparedStatement.executeUpdate();
 
                 connection.commit(); // Commit the transaction
-            } catch (SQLException e) {
-                e.printStackTrace();
-                connection.rollback(); // Roll back the transaction in case of an error
-            } finally {
-                connection.setAutoCommit(true); // Re-enable auto-commit mode
-                connection.close();
+            }
+        } catch (SQLIntegrityConstraintViolationException e) {
+            System.err.println("Unable to save the citation. A citation with the same number already exists.");
+            if (connection != null) {
+                try {
+                    connection.rollback(); // Roll back the transaction
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
             }
         } catch (SQLException e) {
             e.printStackTrace();
+            if (connection != null) {
+                try {
+                    connection.rollback(); // Roll back the transaction in case of an error
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
+            }
+        } finally {
+            if (connection != null) {
+                try {
+                    connection.setAutoCommit(true); // Re-enable auto-commit mode
+                    connection.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
         }
     }
+
 }
